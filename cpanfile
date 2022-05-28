@@ -1,0 +1,44 @@
+on 'develop' => sub {
+  requires 'Perl::Critic';
+  requires 'Perl::Tidy';
+};
+
+on 'runtime' => sub {
+    requires 'Modern::Perl';
+    requires 'Data::Dumper';
+    requires 'Encode';
+    requires 'Getopt::Long';
+    requires 'Scalar::Util';
+    requires 'Digest::MD5';
+    requires 'POSIX';
+    requires 'Time::Seconds';
+    requires 'ZMQ::LibZMQ3';
+    requires 'DateTime';
+    requires 'Time::HiRes';
+    requires 'Net::DNS';
+    requires 'Net::DNS::Native';
+    requires 'IO::Socket::Socks';
+    requires 'IO::Socket::SSL';
+    requires 'Mojolicious';
+    requires 'Mojo::File';
+    requires 'Log::Any';
+    requires 'EV';
+    requires 'AnyEvent';
+    requires 'JSON::XS';
+    requires 'Crypt::PK::ECC';
+    requires 'Crypt::JWT';
+    requires 'JSON';
+    requires 'Cache::Memory::Simple';
+    requires 'Protocol::HTTP2::Client';
+    requires 'Data::Printer';
+    requires 'Data::UUID::MT';
+    requires 'CPAN::Meta::YAML';
+    requires 'Future::AsyncAwait';
+    requires 'Feature::Compat::Try';
+    requires 'Mojo::SQLite';
+    requires 'Crypt::Argon2';
+    requires 'MongoDB';
+    requires 'Data::Validate::Email';
+    requires 'UV';
+    requires 'Mojo::Reactor::UV';
+};

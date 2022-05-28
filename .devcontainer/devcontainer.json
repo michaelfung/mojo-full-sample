@@ -1,0 +1,28 @@
+{
+    "name": "mojo-full-app",
+
+    "build": {
+		"dockerfile": "Dockerfile"
+	},
+
+    "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+    "extensions": [
+        "the96.vscode-perl",
+        "d9705996.perl-toolbox",
+        "mortenhenriksen.perl-debug",
+        "eamodio.gitlens",
+    ],
+
+    "forwardPorts": [
+        8300
+    ],
+
+    "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+    "workspaceFolder": "/app",
+
+    "remoteEnv": { "PATH": "${containerEnv:PATH}:/app/local/bin",
+        "PERL5LIB": "/app/lib:/app/local/lib/perl5" },
+
+    "remoteUser": "vscode"
+}

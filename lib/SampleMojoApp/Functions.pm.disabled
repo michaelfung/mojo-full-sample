@@ -1,0 +1,39 @@
+package SampleMojoApp::Functions;
+use Scalar::Util qw/reftype looks_like_number/;
+use Exporter 'import';
+use feature qw/signatures/;
+no warnings qw(experimental::signatures);
+
+
+# these will be exported automatically,
+# or by using the ':DEFAULT' tag when using the module.
+our @EXPORT = qw (
+	h2s
+    h2snum
+);
+
+# hash to string for logfmt
+sub h2s(%msg) {
+    my $out = '';
+    while ( my ($key, $val) = each %msg) {
+        $out .= " $key=";
+
+        # add quotes if contain space
+        $out .= (index($val, ' ') >= 0) ? ('"'. $val .'"')  : $val;
+
+    }
+    return $out;
+}
+
+sub h2snum(%msg) {
+    my $out = '';
+    while ( my ($key, $val) = each %msg) {
+        $out .= " $key=";
+
+        # add quotes if not number
+        $out .= looks_like_number($val) ? $val : ('"'.$val.'"');
+    }
+    return $out;
+}
+
+1;

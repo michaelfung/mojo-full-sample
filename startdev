@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# run this script when editing code
+
+#APP_PORT default is 8105
+APP_PORT=${APP_PORT:=3000}
+
+# set Mojo params:
+export MOJO_REACTOR=Mojo::Reactor::UV
+export MOJO_MAX_MESSAGE_SIZE=67108864   # 64MB
+export MOJO_MODE=development
+export MOJO_LOG_LEVEL=debug
+
+# launch
+cd /app
+morbo script/sample_mojo_app daemon -l "http://0.0.0.0:${APP_PORT}"

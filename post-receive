@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# file: /home/apps-repo/mojo-full-sample.git/hooks/post-receive
+
+# this script will populate the production code with the latest
+# commit pushed to the repo "/home/apps-repo/mojo-full-sample.git"
+
+TARGET="/opt/apps/mojo-full-sample"
+GIT_DIR="/home/apps-repo/mojo-full-sample.git"
+BRANCH="main"
+LOGGER="/usr/bin/logger -t mojo-full-sample-git"
+
+while read oldrev newrev ref
+do
+	# only checking out the master (or whatever branch you would like to deploy)
+	if [ "$ref" = "refs/heads/$BRANCH" ];
+	then
+		$LOGGER "Ref $ref received. Deploying ${BRANCH} branch to production..."
+		git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH
+		git log -1 --pretty=format:"%h" > ${TARGET}/git-commit-id
+	else
+		$LOGGER "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
+	fi
+done

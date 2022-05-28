@@ -1,0 +1,10 @@
+local/
+.carton/
+localperl/
+ssl/
+log/
+tmp/
+backup/
+*.pem
+*.conf
+.vstags

@@ -1,1 +1,3 @@
+# Carton may fail to install all packages with local darkpan mirror when using perl-devel-vsc
+
 PERL_CARTON_MIRROR=http:///u1710.lan:8302/ carton install

@@ -1,3 +1,8 @@
+# Sample Mojo App
+
+This repo is to show the sample codes of Mojo App development, and using VS Code
+remote container as development environment.
+
 ## Install dependencies
 
 Using carton with local 'darkpan' server:
@@ -7,6 +12,7 @@ Using carton with local 'darkpan' server:
 ## GIT automated deployment setup
 
 Assume deploy to local Pi4 box as production host.
+
 ### Production host setup
 
 At production host, create a bare git repository:

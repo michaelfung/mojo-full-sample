@@ -1,4 +1,4 @@
-FROM perl-devel-vsc:5.32.1
+FROM perl-devel:5.32.1
 
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"

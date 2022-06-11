@@ -11,7 +11,7 @@ Using carton with local 'darkpan' server:
 # cd $app_folder
 docker run --rm -it -v `pwd`:/app -w /app \
     -e PERL_CARTON_MIRROR=http:///u1710.lan:8302 \
-    perl-devel-vsc:5.32.1 carton install
+    perl-devel:5.32.1 carton install
 ```
 ## GIT automated deployment setup
 
@@ -40,7 +40,7 @@ Assume production code is in **main** branch.
 Add a **live** upstream to the working tree:
 
     cd ~/mojo-full-sample
-    git remote add live apps-repo@openhab:moj-full-sample.git
+    git remote add live apps-repo@openhab:mojo-full-sample.git
 
 Push the **main** branch to production server by:
 
@@ -49,5 +49,24 @@ Push the **main** branch to production server by:
 After that, the hook script will update the deployment folder automatically.
 
 
+### Create the production container:
+
+```
+docker stop mojo-app
+docker rm mojo-app
+
+docker run -d --name mojo-app \
+  -e APP_PORT=3000 \
+  --network=host \
+  -v /opt/apps/mojo-full-sample:/app \
+  --log-driver=loki:latest \
+  --log-opt loki-url="http://10.1.99.16:3100/loki/api/v1/push" \
+  --log-opt loki-retries=5 \
+  --log-opt loki-batch-size=400 \
+  --log-opt loki-external-labels="container_name=mojo-app" \
+  --restart=unless-stopped \
+  perl-devel:5.32.1 /app/start
+
+```
 
 

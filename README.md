@@ -7,8 +7,12 @@ remote container as development environment.
 
 Using carton with local 'darkpan' server:
 
-    PERL_CARTON_MIRROR=http:///u1710.lan:8302/ carton install
-
+```
+# cd $app_folder
+docker run --rm -it -v `pwd`:/app -w /app \
+    -e PERL_CARTON_MIRROR=http:///u1710.lan:8302 \
+    perl-devel-vsc:5.32.1 carton install
+```
 ## GIT automated deployment setup
 
 Assume deploy to local Pi4 box as production host.

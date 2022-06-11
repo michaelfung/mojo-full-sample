@@ -1,15 +1,20 @@
 #!/bin/bash
 
-# start script for the app, set as CMD of the docker run command
+# start script for the app in production
+# set as the CMD part of the docker run command
 
-#APP_PORT default is 8105
+# install any missing modules
+cd /app
+carton install --deployment
+
 APP_PORT=${APP_PORT:=3000}
 
 # set Mojo params:
-export LIBEV_FLAGS=4 # "use epoll"
+# set Mojo params:
+export MOJO_REACTOR=Mojo::Reactor::UV
 export MOJO_MAX_MESSAGE_SIZE=65536   # default is 10485760 (10MB)
 export MOJO_MODE=production
+export MOJO_LOG_LEVEL=debug
 
 # launch
-cd /app
 script/sample_mojo_app daemon -l "http://0.0.0.0:${APP_PORT}"

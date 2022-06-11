@@ -1,3 +1,5 @@
-# Carton may fail to install all packages with local darkpan mirror when using perl-devel-vsc
+# used the devel image's carton command
 
-PERL_CARTON_MIRROR=http:///u1710.lan:8302/ carton install
+docker run --rm -it -v `pwd`:/app -w /app \
+    -e PERL_CARTON_MIRROR=http:///u1710.lan:8302 \
+    perl-devel-vsc:5.32.1 carton install

@@ -17,4 +17,4 @@ COPY --chown=nobody:nogroup templates /app/templates/
 # execution
 USER nobody
 
-CMD ['/app/start']
+CMD ["/app/start"]

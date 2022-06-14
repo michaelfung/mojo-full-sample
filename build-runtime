@@ -1,1 +1,3 @@
+# the following command to be run to build an image for app execution
+
 docker build -f Dockerfile.runtime -t mojo-app .

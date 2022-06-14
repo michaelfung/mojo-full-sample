@@ -5,7 +5,7 @@
 
 # install any missing modules
 cd /app
-carton install --deployment
+#carton install --deployment
 
 # setup runtime environment
 export PERL5LIB=/app/lib:/app/local/lib/perl5

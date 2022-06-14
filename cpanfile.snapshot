@@ -2072,13 +2072,13 @@ DISTRIBUTIONS
     requirements:
       B 0
       Config 0
-      Data::Dumper 2.131
-      Exception::Class 1.32
-      ExtUtils::MakeMaker 0
-      Scalar::Util 1.23
-      Test::More 0.98
+      Data::Dumper 0
+      Exception::Class 1.22
+      Scalar::Util 1.55
+      Test::More 0.5
       attributes 0
       overload 0
+      perl v5.6.0
       strict 0
       warnings 0
   PBKDF2-Tiny-0.005

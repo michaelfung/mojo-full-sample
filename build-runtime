@@ -1,0 +1,1 @@
+docker build -f Dockerfile.runtime -t mojo-app .

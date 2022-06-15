@@ -130,7 +130,7 @@ sub register ($self, $app, $conf) {
         });
     });
 
-    Mojo::IOLoop->recurring( 5 => sub { warn "tick..."; } );
+    # Mojo::IOLoop->recurring( 5 => sub { warn "tick..."; } );
 }
 
 1;

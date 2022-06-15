@@ -69,4 +69,30 @@ docker run -d --name mojo-app \
 
 ```
 
+## Standalone Docker image deployment
+
+This method will bundle the App code and all dependencies in a single image for deployment.
+
+### Build
+
+Use the `Dockerfile.runtime`:
+
+    docker build -f Dockerfile.runtime -t mojo-app:latest .
+    docker image tag mojo-app:latest michaelfung/mojo-app:0.1
+    docker image push michaelfung/mojo-app:0.1
+
+### Deploy
+
+At the production server:
+
+docker run -d --name mojo-app \
+  -e APP_PORT=3000 \
+  --network=host \
+  --log-driver=loki:latest \
+  --log-opt loki-url="http://10.1.99.16:3100/loki/api/v1/push" \
+  --log-opt loki-retries=5 \
+  --log-opt loki-batch-size=400 \
+  --log-opt loki-external-labels="container_name=mojo-app" \
+  --restart=unless-stopped \
+  michaelfung/mojo-app:0.1
 

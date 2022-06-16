@@ -7,6 +7,8 @@ use Mojo::Base 'Mojolicious', -signatures;
 use Scalar::Util qw/reftype blessed/;
 use Data::Printer;
 
+our $VERSION = '0.2';
+
 has mcache => sub ($self) {
   state $cache = Mojo::Cache->new;
 };
@@ -70,6 +72,10 @@ sub startup ($app) {
     $r->any('/al/parsecan')->to('ActionList#parse_can');
 
     $r->any('/ls/largeset')->to('LargeDataSet#large_set');
+
+    $r->get('version')->to(cb => sub($c) {
+      $c->render(text => $VERSION);
+    });
 
     $app->log->info('act=startup', 'msg="### SampleMojoApp Started ###"');
     my $reactor = Mojo::IOLoop->singleton->reactor;

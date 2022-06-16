@@ -7,12 +7,13 @@ RUN mkdir -p /app && \
     chown -R nobody /app
 
 COPY --chown=nobody:nogroup start /app/
-COPY --chown=nobody:nogroup sample_mojo_app.yml /app/
 COPY --chown=nobody:nogroup local /app/local
-COPY --chown=nobody:nogroup lib /app/lib/
+COPY --chown=nobody:nogroup sample_mojo_app.yml /app/
 COPY --chown=nobody:nogroup public /app/public/
 COPY --chown=nobody:nogroup script /app/script/
 COPY --chown=nobody:nogroup templates /app/templates/
+# folder changes the most place at last
+COPY --chown=nobody:nogroup lib /app/lib/
 
 # execution
 USER nobody

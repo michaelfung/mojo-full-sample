@@ -7,6 +7,7 @@ my $t = Test::Mojo->new('SampleMojoApp');
 
 subtest 'app startup' => sub {
     $t->get_ok('/')->status_is(200)->content_like(qr/Sample Mojolicious App/i);
+    $t->get_ok('/version')->status_is(200);
 };
 
 subtest 'constants' => sub {

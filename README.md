@@ -85,6 +85,18 @@ Use the `Dockerfile.runtime`:
 
 At the production server:
 
+```
+docker run -d --name mojo-app \
+  -e APP_PORT=3000 \
+  --network=host \
+  --restart=unless-stopped \
+  michaelfung/mojo-app:0.2
+
+```
+
+With loki support:
+
+```
 docker run -d --name mojo-app \
   -e APP_PORT=3000 \
   --network=host \
@@ -94,5 +106,7 @@ docker run -d --name mojo-app \
   --log-opt loki-batch-size=400 \
   --log-opt loki-external-labels="container_name=mojo-app" \
   --restart=unless-stopped \
-  michaelfung/mojo-app:0.1
+  michaelfung/mojo-app:0.2
+
+```
 

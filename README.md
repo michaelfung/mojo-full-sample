@@ -75,11 +75,18 @@ This method will bundle the App code and all dependencies in a single image for 
 
 ### Build
 
-Use the `Dockerfile.runtime`:
+Use the `Dockerfile.runtime` to build the image:
 
     docker build -f Dockerfile.runtime -t mojo-app:latest .
     docker image tag mojo-app:latest michaelfung/mojo-app:0.1
     docker image push michaelfung/mojo-app:0.1
+
+
+### Test
+
+Run the unit test suite with:
+
+    docker run --rm -t michaelfung/mojo-app:0.1 /app/run-test.sh
 
 ### Deploy
 

@@ -1,9 +1,11 @@
 # the following command to be run to build an image for app execution
 
-APP_VER=${APP_VER:=0.3}
+APP_VER=${APP_VER:=0.4}
 
 docker build -f Dockerfile.runtime -t mojo-app:latest .
-docker image tag mojo-app:latest michaelfung/mojo-app:${APP_VER}
-docker image push michaelfung/mojo-app:${APP_VER}
 
+if [ "$1" == "push" ]; then
+    docker image tag mojo-app:latest michaelfung/mojo-app:${APP_VER}
+    docker image push michaelfung/mojo-app:${APP_VER}
+fi
 

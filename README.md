@@ -60,7 +60,7 @@ docker run -d --name mojo-app \
   --network=host \
   -v /opt/apps/mojo-full-sample:/app \
   --log-driver=loki:latest \
-  --log-opt loki-url="http://10.1.99.16:3100/loki/api/v1/push" \
+  --log-opt loki-url="http://10.4.99.16:3100/loki/api/v1/push" \
   --log-opt loki-retries=5 \
   --log-opt loki-batch-size=400 \
   --log-opt loki-external-labels="container_name=mojo-app" \
@@ -78,15 +78,15 @@ This method will bundle the App code and all dependencies in a single image for 
 Use the `Dockerfile.runtime` to build the image:
 
     docker build -f Dockerfile.runtime -t mojo-app:latest .
-    docker image tag mojo-app:latest michaelfung/mojo-app:0.1
-    docker image push michaelfung/mojo-app:0.1
+    docker image tag mojo-app:latest michaelfung/mojo-app:0.4
+    docker image push michaelfung/mojo-app:0.4
 
 
 ### Test
 
 Run the unit test suite with:
 
-    docker run --rm -t michaelfung/mojo-app:0.1 /app/run-test.sh
+    docker run --rm -t michaelfung/mojo-app:0.4 /app/run-test.sh
 
 ### Deploy
 
@@ -97,7 +97,7 @@ docker run -d --name mojo-app \
   -e APP_PORT=3000 \
   --network=host \
   --restart=unless-stopped \
-  michaelfung/mojo-app:0.2
+  michaelfung/mojo-app:0.4
 
 ```
 
@@ -108,12 +108,12 @@ docker run -d --name mojo-app \
   -e APP_PORT=3000 \
   --network=host \
   --log-driver=loki:latest \
-  --log-opt loki-url="http://10.1.99.16:3100/loki/api/v1/push" \
+  --log-opt loki-url="http://10.4.99.16:3100/loki/api/v1/push" \
   --log-opt loki-retries=5 \
   --log-opt loki-batch-size=400 \
   --log-opt loki-external-labels="container_name=mojo-app" \
   --restart=unless-stopped \
-  michaelfung/mojo-app:0.2
+  michaelfung/mojo-app:0.4
 
 ```
 

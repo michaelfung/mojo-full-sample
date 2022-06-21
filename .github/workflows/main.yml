@@ -39,8 +39,7 @@ jobs:
           key: ${{ runner.os }}-deps
 
         # store deps source files in vendor/ as cache
-        - name: install dependencies
-          if: steps.cache-deps.outputs.cache-hit != 'true'
-          run: |
-            carton install --deployment
-
+      - name: install dependencies
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: |
+          carton install --deployment

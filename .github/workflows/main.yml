@@ -35,4 +35,11 @@ jobs:
       - name: install dependencies
         run: |
           carton install --deployment
-
+      
+      # store built dependencies
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dependecies
+          path: local/
+          if-no-files-found: error
+          

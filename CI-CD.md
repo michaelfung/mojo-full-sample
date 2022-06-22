@@ -2,11 +2,9 @@
 
 Example steps for CI/CD with Github Action
 
-## Setup Building of the App
+## Automate Build and Test of the App
 
-Create `build.yml` in the workflow configuration. We can use Github web UI.
+Create `main.yml` in the workflow configuration folder. This config handle the building
+of the `main` branch on the push event.
 
-## Stanalone Docker image
-
-The deployment goal is a stanalone Docker image.
 

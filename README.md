@@ -1,6 +1,8 @@
+[![CI](https://github.com/michaelfung/mojo-full-sample/actions/workflows/main.yml/badge.svg)](https://github.com/michaelfung/mojo-full-sample/actions/workflows/main.yml)
+
 # Sample Mojo App
 
-This repo is to show the sample codes of Mojo App development, and using VS Code
+An example of Mojo App development, using VS Code
 remote container as development environment.
 
 ## Install dependencies

@@ -29,13 +29,13 @@ jobs:
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
           carton install --deployment
+          tar zcf local.tgz local
 
       - name: store deps
         uses: actions/upload-artifact@v3
         with:
           name: deps
-          path: local/
-
+          path: local.tgz
 
   build-image:
     name: build container image
@@ -58,12 +58,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deps
-          path: local
+
+      - name: extract deps
+        run: tar zxf local.tar
 
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
           file: release.Dockerfile
           push: true
           tags: michaelfung/mojo-app:latest

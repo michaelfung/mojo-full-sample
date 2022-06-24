@@ -29,6 +29,9 @@ jobs:
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
           carton install --deployment
+
+      - name: zip up deps
+        run: |
           tar zcf local.tgz local
 
       - name: store deps
@@ -60,7 +63,7 @@ jobs:
           name: deps
 
       - name: extract deps
-        run: tar zxf local.tar
+        run: tar zxf local.tgz
 
       - name: Build and push
         uses: docker/build-push-action@v3

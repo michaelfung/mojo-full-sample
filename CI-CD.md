@@ -13,3 +13,5 @@ Create `release.yml` in the workflow configuration folder.
 Use file `release.Dockerfile` as the build configuration.
 
 The built image is ready for deployment.
+
+"git.followTagsWhenSync": true

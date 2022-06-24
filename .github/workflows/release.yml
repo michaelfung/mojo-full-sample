@@ -1,5 +1,5 @@
 # Build container image for deployment
-name: Container Image
+name: Disabled
 
 on:
   release:

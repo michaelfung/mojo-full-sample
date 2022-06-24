@@ -10,4 +10,6 @@ Create `main.yml` in the workflow configuration folder.
 
 Create `release.yml` in the workflow configuration folder.
 
+Use file `release.Dockerfile` as the build configuration.
+
 The built image is ready for deployment.

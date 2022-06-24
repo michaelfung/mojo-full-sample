@@ -1,21 +1,14 @@
-# This is a basic workflow to help you get started with Actions
+# Build container image for deployment
+name: Container Image
 
-name: Test Build Image
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "testing" ]
+    branches: ["testing"]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+
+  build-deps:
+    name: build dependencies
     runs-on: ubuntu-latest
     container:
       image: michaelfung/perl-devel:5.32.1
@@ -25,28 +18,51 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: check perl version
-        run: perl -V
-
       - name: Cache dependencies
         id: cache-deps
         uses: actions/cache@v3
         with:
           path: local
-          key: ${{ runner.os }}-${{ hashFiles('cpanfile*') }}
+          key: ${{ runner.os }}-deps-${{ hashFiles('cpanfile*') }}
 
       - name: Install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
           carton install --deployment
 
-      - name: Run unit test
+      - name: zip up deps
         run: |
-          export PATH=$PATH:./local/bin
-          export PERL5LIB=./lib:./local/lib/perl5
-          export MOJO_REACTOR=Mojo::Reactor::UV
-          export MOJO_MAX_MESSAGE_SIZE=65536   # default is 10485760 (10MB)
-          export MOJO_MODE=development
-          export MOJO_LOG_LEVEL=debug
-          prove -v
+          tar zcf local.tgz local
 
+  build-image:
+    name: build container image
+    needs: build-deps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: local
+          key: ${{ runner.os }}-deps-${{ hashFiles('cpanfile*') }} 
+          restorekey: ${{ runner.os }}-deps-          
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: release.Dockerfile
+          push: true
+          tags: michaelfung/mojo-app:latest

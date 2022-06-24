@@ -54,7 +54,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: local
-          key: ${{ runner.os }}-deps-${{ hashFiles('cpanfile*') }}
+          key: ${{ runner.os }}-deps-local-${{ hashFiles('cpanfile*') }}
 
       - name: Build and push
         uses: docker/build-push-action@v3

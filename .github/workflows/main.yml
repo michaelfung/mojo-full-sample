@@ -5,6 +5,8 @@ on:
   push:
     branches: ["testing"]
 
+  workflow_dispatch:
+
 jobs:
 
   build-deps:
@@ -56,8 +58,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: local
-          key: ${{ runner.os }}-deps-${{ hashFiles('cpanfile*') }} 
-          restorekey: ${{ runner.os }}-deps-          
+          key: ${{ runner.os }}-deps-${{ hashFiles('cpanfile*') }}
+          restorekey: ${{ runner.os }}-deps-
 
       - name: Build and push
         uses: docker/build-push-action@v3

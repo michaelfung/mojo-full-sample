@@ -32,10 +32,6 @@ jobs:
         run: |
           carton install --deployment
 
-      - name: zip up deps
-        run: |
-          tar zcf local.tgz local
-
   build-image:
     name: build container image
     needs: build-deps
@@ -59,7 +55,8 @@ jobs:
         with:
           path: local
           key: ${{ runner.os }}-deps-${{ hashFiles('cpanfile*') }}
-          restorekey: ${{ runner.os }}-deps-
+          restore-keys: |
+            ${{ runner.os }}-deps-
 
       - name: Build and push
         uses: docker/build-push-action@v3

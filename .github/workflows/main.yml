@@ -7,6 +7,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  TEST_TAG: michaelfung/mojo-app:test
+
 jobs:
 
   build-deps:
@@ -17,6 +20,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            michaelfung/mojo-app
+          tags: |            
+            type=semver,pattern={{version}}            
+            type=sha
+            
       - name: Cache dependencies
         id: cache-deps
         uses: actions/cache@v3
@@ -59,4 +72,4 @@ jobs:
           context: .
           file: release.Dockerfile
           push: true
-          tags: michaelfung/mojo-app:latest
+          tags: ${{ steps.meta.outputs.tags }}

@@ -45,6 +45,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          file: release.Dockerfile
           load: true
           tags: michaelfung/mojo-app:latest
           

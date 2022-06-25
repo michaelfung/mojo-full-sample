@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
-          docker run --rm -it -v `pwd`:/app -w /app michaelfung/perl-devel:5.32.1 carton install --deployment
+          docker run --rm -t -v `pwd`:/app -w /app michaelfung/perl-devel:5.32.1 carton install --deployment
 
   build-image:
     name: build container image

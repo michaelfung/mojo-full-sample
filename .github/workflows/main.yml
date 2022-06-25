@@ -1,5 +1,5 @@
 # Build container image for deployment
-name: Container Image
+name: Image
 
 on:
   push:
@@ -29,11 +29,6 @@ jobs:
         run: |
           docker run --rm -t -v `pwd`:/app -w /app michaelfung/perl-devel:5.32.1 carton install --deployment
 
-  build-image:
-    name: build container image
-    needs: build-deps
-    runs-on: ubuntu-latest
-    steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -45,13 +40,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - uses: actions/checkout@v3
-      
-      - uses: actions/cache@v3
-        with:
-          path: local
-          key: ${{ runner.os }}-deps-local-${{ hashFiles('cpanfile*') }}
 
       - name: Build and push
         uses: docker/build-push-action@v3

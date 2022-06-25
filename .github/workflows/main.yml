@@ -12,10 +12,7 @@ jobs:
   build-deps:
     name: build dependencies
     runs-on: ubuntu-latest
-    container:
-      image: michaelfung/perl-devel:5.32.1
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -26,11 +23,11 @@ jobs:
         with:
           path: local
           key: ${{ runner.os }}-deps-local-${{ hashFiles('cpanfile*') }}
-
+       
       - name: Install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
-          carton install --deployment
+          docker run --rm -it -v `pwd`:/app -w /app michaelfung/perl-devel:5.32.1 carton install --deployment
 
   build-image:
     name: build container image

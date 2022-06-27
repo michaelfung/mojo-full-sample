@@ -1,4 +1,5 @@
 local/
+vendor/
 .carton/
 localperl/
 ssl/

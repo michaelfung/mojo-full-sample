@@ -1,6 +1,6 @@
 # Used by Github workflow to build an image for deployment
 
-FROM michaelfung/perl-rt:5.32.1
+FROM ghcr.io/michaelfung/perl-rt:5.32.1
 
 # required perl libraries
 

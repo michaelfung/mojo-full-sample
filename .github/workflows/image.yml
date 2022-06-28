@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
-          docker run --rm -t -v `pwd`:/app -w /app michaelfung/perl-devel:5.32.1 carton install --deployment
+          docker run --rm -t -v `pwd`:/app -w /app ghcr.io/michaelfung/perl-devel:5.32.1 carton install --deployment
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2

@@ -80,15 +80,15 @@ This method will bundle the App code and all dependencies in a single image for 
 Use the `Dockerfile.runtime` to build the image:
 
     docker build -f Dockerfile.runtime -t mojo-app:latest .
-    docker image tag mojo-app:latest michaelfung/mojo-app:0.5
-    docker image push michaelfung/mojo-app:0.5
+    docker image tag mojo-app:latest michaelfung/mojo-app:0.6
+    docker image push michaelfung/mojo-app:0.6
 
 
 ### Test
 
 Run the unit test suite with:
 
-    docker run --rm -t michaelfung/mojo-app:0.5 /app/run-test.sh
+    docker run --rm -t michaelfung/mojo-app:0.6 /app/run-test.sh
 
 ### Deploy
 
@@ -99,7 +99,7 @@ docker run -d --name mojo-app \
   -e APP_PORT=3000 \
   --network=host \
   --restart=unless-stopped \
-  michaelfung/mojo-app:0.5
+  michaelfung/mojo-app:0.6
 
 ```
 
@@ -115,7 +115,7 @@ docker run -d --name mojo-app \
   --log-opt loki-batch-size=400 \
   --log-opt loki-external-labels="container_name=mojo-app" \
   --restart=unless-stopped \
-  michaelfung/mojo-app:0.5
+  michaelfung/mojo-app:0.6
 
 ```
 

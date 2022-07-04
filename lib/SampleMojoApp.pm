@@ -7,7 +7,7 @@ use Mojo::Base 'Mojolicious', -signatures;
 use Scalar::Util qw/reftype blessed/;
 use Data::Printer;
 
-our $VERSION = '0.5';
+our $VERSION = '0.6';
 
 has mcache => sub ($self) {
   state $cache = Mojo::Cache->new;

@@ -64,7 +64,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            michaelfung/mojo-app
+            ghcr.io/michaelfung/mojo-app
+          # uncomment following if want to also publish to docker.io:
+          # michaelfung/mojo-app
           tags: |
             type=raw,value=latest
             type=semver,pattern={{version}}
@@ -76,4 +78,4 @@ jobs:
           context: .
           file: release.Dockerfile
           push: true
-          tags: ghcr.io/${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}

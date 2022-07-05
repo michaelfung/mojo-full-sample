@@ -1,9 +1,9 @@
-# Build container image for deployment, support multi arch with buildx
-name: Image
+# Build container image for deployment, single arch(AMD64 only)
+name: Image-AMD64
 
 on:
-  release:
-    types: [published]
+#  release:  ## commented out for manual run only
+#    types: [published]
 
   workflow_dispatch:
 
@@ -15,6 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v3
+        with:
+          path: local
+          key: ${{ runner.os }}-deps-local-${{ hashFiles('cpanfile*') }}
+
+      - name: Install dependencies
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: |
+          docker run --rm -t -v `pwd`:/app -w /app ghcr.io/michaelfung/perl-devel:5.32.1 carton install --deployment
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -42,6 +54,10 @@ jobs:
           file: release.Dockerfile
           load: true
           tags: ${{ env.TEST_TAG }}
+
+      - name: Run unit test with image
+        run: |
+          docker run --rm -t ${{ env.TEST_TAG }} /app/run-test.sh
 
       - name: Generate image tag
         id: meta

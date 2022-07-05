@@ -60,6 +60,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          platforms: |
+            linux/amd64
+            linux/arm/v7
           file: release.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}

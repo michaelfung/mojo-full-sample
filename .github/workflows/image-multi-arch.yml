@@ -1,5 +1,5 @@
 # Build container image for deployment, support multi arch with buildx
-name: Image
+name: Image-Multi-Arch
 
 on:
   workflow_dispatch:

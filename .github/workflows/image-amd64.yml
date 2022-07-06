@@ -2,8 +2,8 @@
 name: Image-AMD64
 
 on:
-#  release:  ## commented out for manual run only
-#    types: [published]
+  release:  ## commented out for manual run only
+    types: [published]
 
   workflow_dispatch:
 
@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: release.Dockerfile
+          file: release-amd64.Dockerfile
           load: true
           tags: ${{ env.TEST_TAG }}
 
@@ -76,6 +76,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: release.Dockerfile
+          file: release-amd64.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}

@@ -2,9 +2,6 @@
 name: Image
 
 on:
-  release:
-    types: [published]
-
   workflow_dispatch:
 
 jobs:
@@ -52,6 +49,6 @@ jobs:
           platforms: |
             linux/amd64
             linux/arm/v7
-          file: release.Dockerfile
+          file: release-multi-arch.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}

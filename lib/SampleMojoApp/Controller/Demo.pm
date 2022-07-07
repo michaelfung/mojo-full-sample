@@ -144,7 +144,7 @@ async sub read_row ($c) {
 
 async sub get_devices ($c) {
   my $tx     = $c->render_later->tx;
-  my $hub_id = $c->param('hub_id') // 'em-001';
+  my $hub_id = $c->param('hub_id') // 'em-002';
 
   my ($devices) = await $c->db->get_devices($hub_id);
   $c->render( text => Dumper $devices);

@@ -16,4 +16,9 @@ subtest 'constants' => sub {
     ok !$LOOKUP{baz}, 'undef constant ok';
 };
 
+# delibrately make this test fail
+subtest 'force fail' => sub {
+    $t->get_ok('/badpathnotexists')->status_is(200);
+};
+
 done_testing();

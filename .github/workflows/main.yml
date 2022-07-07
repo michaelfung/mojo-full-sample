@@ -7,6 +7,13 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+  # And only if these paths are changed:
+    paths:
+      - 'lib/**'
+      - 'script/**'
+      - 'templates/**'
+      - 't/**'
+      - 'cpanfile*'
   pull_request:
     branches: [ "main" ]
 
@@ -16,7 +23,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  unittest:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
@@ -26,9 +33,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      - name: check perl version
-        run: perl -V
 
       - name: Cache dependencies
         id: cache-deps
@@ -42,7 +46,7 @@ jobs:
         run: |
           carton install --deployment
 
-      - name: Run unit test
+      - name: Start prove
         run: |
           export PATH=$PATH:./local/bin
           export PERL5LIB=./lib:./local/lib/perl5

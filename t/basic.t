@@ -17,8 +17,8 @@ subtest 'constants' => sub {
 };
 
 # delibrately make this test fail
-subtest 'force fail' => sub {
-    $t->get_ok('/badpathnotexists')->status_is(200);
-};
+#subtest 'force fail' => sub {
+#    $t->get_ok('/badpathnotexists')->status_is(200);
+#};
 
 done_testing();

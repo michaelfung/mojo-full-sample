@@ -19,7 +19,7 @@ on 'runtime' => sub {
     requires 'Net::DNS::Native';
     requires 'IO::Socket::Socks';
     requires 'IO::Socket::SSL';
-    requires 'Mojolicious';
+    requires 'Mojolicious', '>= 9.31';
     requires 'Mojo::File';
     requires 'Log::Any';
     requires 'EV';

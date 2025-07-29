@@ -12,7 +12,7 @@ Using carton with local 'darkpan' server:
 ```
 # cd $app_folder
 docker run --rm -it -v `pwd`:/app -w /app \
-    -e PERL_CARTON_MIRROR=http:///u1710.lan:8302 \
+    -e PERL_CARTON_MIRROR=http:///main-pc.lan:8302 \
     perl-devel:5.32.1 carton install
 ```
 ## GIT automated deployment setup

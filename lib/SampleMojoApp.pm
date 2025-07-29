@@ -8,6 +8,7 @@ use Scalar::Util qw/reftype blessed/;
 use Data::Printer;
 
 our $VERSION = '0.8';
+our $start_time = time();
 
 has mcache => sub ($self) {
   state $cache = Mojo::Cache->new;
@@ -75,6 +76,16 @@ sub startup ($app) {
 
     $r->get('version')->to(cb => sub($c) {
       $c->render(text => $VERSION);
+    });
+
+    $r->get('/metrics')->to(cb => sub ($c) {
+      my $metrics;
+      my $uptime = time() - $start_time;
+      $metrics .= "# uptime counter\n";
+      $metrics .= "uptime $uptime\n";
+      $c->res->headers->content_type('text/plain;charset=utf-8');
+      $c->res->body($metrics);
+      $c->rendered(200);
     });
 
     $app->log->info('act=startup', 'msg="### SampleMojoApp Started ###"');

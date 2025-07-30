@@ -81,9 +81,10 @@ sub startup ($app) {
     $r->get('/metrics')->to(cb => sub ($c) {
       my $metrics;
       my $uptime = time() - $start_time;
-      $metrics .= "# uptime counter\n";
+      $metrics .= "# HELP uptime Mojo sample app uptime in seconds\n";
+      $metrics .= "# TYPE uptime gauge\n";
       $metrics .= "uptime $uptime\n";
-      $c->res->headers->content_type('text/plain;charset=utf-8');
+      $c->res->headers->content_type('application/openmetrics-text; version=1.0.0; charset=utf-8');
       $c->res->body($metrics);
       $c->rendered(200);
     });

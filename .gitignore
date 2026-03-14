@@ -9,3 +9,4 @@ backup/
 *.pem
 *.conf
 .vstags
+.carmel/
